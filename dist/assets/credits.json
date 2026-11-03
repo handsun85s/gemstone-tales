@@ -1,0 +1,90 @@
+[
+  {
+    "id": "amethyst",
+    "file": "amethyst.jpg",
+    "alt": "乌拉圭紫水晶晶簇与晶洞",
+    "author": "Gonzalo Devia",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Amatista_Laye_2.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/Amatista_Laye_2.jpg/960px-Amatista_Laye_2.jpg",
+    "changes": "Resized to a web thumbnail; original colors retained."
+  },
+  {
+    "id": "quartz",
+    "file": "quartz.jpg",
+    "alt": "巴西无色白水晶晶簇",
+    "author": "Didier Descouens",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Quartz_Br%C3%A9sil.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Quartz_Br%C3%A9sil.jpg/960px-Quartz_Br%C3%A9sil.jpg",
+    "changes": "Resized to a web thumbnail; original colors retained."
+  },
+  {
+    "id": "rose-quartz",
+    "file": "rose-quartz.jpg",
+    "alt": "天然粉晶原石标本",
+    "author": "James St. John",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Rose_quartz_12.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Rose_quartz_12.jpg/960px-Rose_quartz_12.jpg",
+    "changes": "Resized to a web thumbnail; original colors retained."
+  },
+  {
+    "id": "fluorite",
+    "file": "fluorite.jpg",
+    "alt": "纳米比亚绿色萤石晶体与基岩",
+    "author": "CarlesMillan",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:3192M-fluorite1.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/3192M-fluorite1.jpg/960px-3192M-fluorite1.jpg",
+    "changes": "Resized to a web thumbnail; original colors retained."
+  },
+  {
+    "id": "pyrite",
+    "file": "pyrite.jpg",
+    "alt": "秘鲁黄铁矿金色立方体晶簇",
+    "author": "Ivar Leidus",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pyrite_-_Huanzala_mine,_Huallanca,_Bolognesi,_Ancash,_Peru.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Pyrite_-_Huanzala_mine%2C_Huallanca%2C_Bolognesi%2C_Ancash%2C_Peru.jpg/960px-Pyrite_-_Huanzala_mine%2C_Huallanca%2C_Bolognesi%2C_Ancash%2C_Peru.jpg",
+    "changes": "Resized to a web thumbnail; original colors retained."
+  },
+  {
+    "id": "malachite",
+    "file": "malachite.jpg",
+    "alt": "刚果孔雀石绿色矿物标本",
+    "author": "JJ Harrison (https://www.jjharrison.com.au/)",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Malachite,_Zaire.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Malachite%2C_Zaire.jpg/960px-Malachite%2C_Zaire.jpg",
+    "changes": "Resized to a web thumbnail; original colors retained."
+  },
+  {
+    "id": "agate",
+    "file": "agate.jpg",
+    "alt": "马拉维玛瑙抛光切片及其条带",
+    "author": "James St. John",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Malawi_Agate_(Malawi,_southeastern_Africa)_(32734668126).jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/26/Malawi_Agate_%28Malawi%2C_southeastern_Africa%29_%2832734668126%29.jpg/960px-Malawi_Agate_%28Malawi%2C_southeastern_Africa%29_%2832734668126%29.jpg",
+    "changes": "Resized to a web thumbnail; original colors retained."
+  },
+  {
+    "id": "aquamarine",
+    "file": "aquamarine.jpg",
+    "alt": "巴基斯坦海蓝宝石与白云母共生标本",
+    "author": "Gunnar Ries Amphibol",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+    "source": "https://commons.wikimedia.org/wiki/File:Aquamarine_P1000141.JPG",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Aquamarine_P1000141.JPG/960px-Aquamarine_P1000141.JPG",
+    "changes": "Resized to a web thumbnail; original colors retained."
+  }
+]

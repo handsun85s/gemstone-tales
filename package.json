@@ -1,0 +1,11 @@
+{
+  "name": "gemstone-tales",
+  "version": "1.0.0",
+  "private": true,
+  "description": "面向孩子和家长的宝石观察与探索平台",
+  "scripts": {
+    "start": "node server.mjs",
+    "validate:content": "node scripts/validate-content.mjs",
+    "check": "node --check dist/app.js && node --check dist/gems.js && node --check dist/island.js && node scripts/check-adventure.mjs && node scripts/validate-content.mjs && node scripts/validate-playground.mjs"
+  }
+}

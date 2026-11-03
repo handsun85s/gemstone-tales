@@ -1,0 +1,11 @@
+node_modules/
+.sites-runtime/
+*.tar.gz
+*.tgz
+qa/
+.openai/
+.codex/
+.agents/
+.env
+.env.*
+!.env.example

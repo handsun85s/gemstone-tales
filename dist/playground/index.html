@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#faf9f5"><title>四个宝石世界 · 宝石奇谭 Playground</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="playground.css"><script src="playground.js" defer></script>
+</head>
+<body>
+  <header class="pg-header"><a class="pg-brand" href="../"><span>✦</span>宝石奇谭 <small>PLAYGROUND</small></a><a class="back-link" href="../">返回当前版本 ↗</a></header>
+  <main>
+    <div class="intro"><div class="intro-copy"><span class="eyebrow">为 9 岁的好奇心，试四个新世界</span><h1>哪一种，最想让孩子<span>点进去玩？</span></h1><p>每套都有一段能玩的探索流程。先选个世界，再亲手试试。</p></div><div class="intro-doodle" aria-hidden="true"><svg viewBox="0 0 128 100"><path d="m52 7 35 22 9 37-44 28-39-28 5-38Z" fill="#c0a4f4" stroke="#493377" stroke-width="3"/><path d="m52 7-3 32 47 27M18 28l31 11 3 55M13 66l36-27 38-10" fill="none" stroke="#493377" stroke-width="2"/><circle cx="42" cy="54" r="3" fill="#493377"/><circle cx="64" cy="54" r="3" fill="#493377"/><path d="M48 64q6 7 12 0" stroke="#493377" stroke-width="3" fill="none" stroke-linecap="round"/><path d="m109 7 3 8 9 3-9 3-3 9-3-9-9-3 9-3Z" fill="#ffc653"/><path d="m7 7 3 5 5 2-5 2-3 6-2-6-5-2 5-2Z" fill="#f38c74"/></svg></div></div>
+    <section class="concepts" aria-label="四套设计方案">
+      <article class="concept" data-concept="adventure"><button class="concept-open" data-preview="adventure"><div class="mini-screen"><iframe src="adventure.html" title="宝石冒险岛缩略预览" tabindex="-1" aria-hidden="true" loading="lazy" inert></iframe><span class="concept-code">A</span><span class="selected-chip" hidden>✓ 已选</span></div><div class="concept-copy"><span class="concept-tag">地图探险 × 任务引导</span><h2>宝石冒险岛 <span>↗</span></h2><p>像逛一座岛，走进洞穴找到新发现。</p><div class="concept-traits"><span>明快自然</span><span>角色陪伴</span><span>路线清晰</span></div></div></button></article>
+      <article class="concept" data-concept="space"><button class="concept-open" data-preview="space"><div class="mini-screen"><iframe src="space.html" title="星际研究站缩略预览" tabindex="-1" aria-hidden="true" loading="lazy" inert></iframe><span class="concept-code">B</span><span class="selected-chip" hidden>✓ 已选</span></div><div class="concept-copy"><span class="concept-tag">太空任务 × 线索推理</span><h2>星际研究站 <span>↗</span></h2><p>带着一个问题，像小科学家收集证据。</p><div class="concept-traits"><span>宇宙幻想</span><span>问题驱动</span><span>分步探索</span></div></div></button></article>
+      <article class="concept" data-concept="stickers"><button class="concept-open" data-preview="stickers"><div class="mini-screen"><iframe src="stickers.html" title="宝石贴纸册缩略预览" tabindex="-1" aria-hidden="true" loading="lazy" inert></iframe><span class="concept-code">C</span><span class="selected-chip" hidden>✓ 已选</span></div><div class="concept-copy"><span class="concept-tag">手帐收集 × 自主发现</span><h2>宝石贴纸册 <span>↗</span></h2><p>从喜欢的颜色出发，收下认识过的宝石。</p><div class="concept-traits"><span>可爱手绘</span><span>自由选择</span><span>收集成就</span></div></div></button></article>
+      <article class="concept" data-concept="maker"><button class="concept-open" data-preview="maker"><div class="mini-screen"><iframe src="maker.html" title="造物小工坊缩略预览" tabindex="-1" aria-hidden="true" loading="lazy" inert></iframe><span class="concept-code">D</span><span class="selected-chip" hidden>✓ 已选</span></div><div class="concept-copy"><span class="concept-tag">动手创作 × 材料灵感</span><h2>造物小工坊 <span>↗</span></h2><p>观察宝石的形状与花纹，把发现做成作品。</p><div class="concept-traits"><span>积木拼贴</span><span>边玩边学</span><span>创造表达</span></div></div></button></article>
+    </section>
+    <section class="preview" id="preview" aria-labelledby="preview-title">
+      <div class="preview-heading"><div><span class="eyebrow" id="preview-label">方案 A · 地图探险 × 任务引导</span><h2 id="preview-title">宝石冒险岛</h2><p id="preview-hint">试一试：点地图上的站点 → 找线索 → 回答问题 → 留下探索印章。</p></div><div class="selection-controls"><button id="choose" class="choose-button" aria-pressed="false">♡ 我更喜欢这套</button><a id="standalone" class="open-button" href="adventure.html" target="_blank" rel="noopener">单独体验 ↗</a></div></div>
+      <div class="preview-toolbar"><div class="device-switch" role="group" aria-label="预览设备尺寸"><button data-device="desktop" aria-pressed="true">▱ 桌面</button><button data-device="mobile" aria-pressed="false">▯ 手机</button></div><span id="frame-status">可以直接点击下方界面体验</span><button id="copy-link" class="copy-button">复制这套方案的链接 ↗</button></div>
+      <div class="preview-surface" id="preview-surface"><iframe id="live-preview" src="adventure.html" title="宝石冒险岛交互体验"></iframe></div>
+      <div class="selection-summary" id="selection-summary" role="status"><span>还没决定？四套都可以慢慢试。</span><button id="clear-choice" hidden>清除选择</button></div>
+      <div id="link-fallback" hidden><label for="share-url">选中下方地址即可复制</label><input id="share-url" readonly></div>
+    </section>
+    <section class="decision-note"><span>✦</span><div><h2>除了“好看”，也听听孩子怎么说。</h2><p>“你最想先点哪里？” “你知道下一步做什么吗？” “哪一套让你想继续探索？”</p><small>这些是用于选择方向的交互原型；体验进度仅在各自预览中演示。喜欢的方案会记在当前浏览器，选好后再应用到正式版。</small></div></section>
+  </main>
+  <footer>四种风格，一样的好奇心。<a href="../">宝石奇谭 ↗</a></footer>
+  <div class="pg-toast" id="pg-toast" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#eff8e8">
+  <meta name="description" content="每一颗宝石，都藏着地球的故事。认识真实矿物，完成观察任务，记录属于你的小小发现。">
+  <title>宝石奇谭 · 宝石冒险岛</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="island.css">
+  <link rel="stylesheet" href="adventure-theme.css">
+  <script src="gems.js" defer></script>
+  <script src="app.js" defer></script>
+  <script src="island-progress.js" defer></script>
+  <script src="island.js" defer></script>
+</head>
+<body>
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"><defs>
+<symbol id="i-gem" viewBox="0 0 24 24"><path d="m4 4 16 0 3 6-11 12L1 10Z M4 4l4 6 4-6 4 6 4-6M1 10h22M8 10l4 12 4-12"/></symbol>
+<symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m16 8-3 5-5 3 3-5Z"/></symbol>
+<symbol id="i-stamp" viewBox="0 0 24 24"><path d="m12 2 3 2 4 .5.5 4 2 3-2 3-.5 4-4 .5-3 2-3-2-4-.5-.5-4-2-3 2-3 .5-4L9 4Z"/><path d="m7.5 12 3 3 6-6"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 3C4 0 1 9 5 16c7 4 15 1 15-13ZM3 21 15 9"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+</defs></svg>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="header">
+    <a class="brand" href="#island" aria-label="宝石奇谭冒险岛首页"><svg viewBox="0 0 44 50" aria-hidden="true"><path d="m22 3 16 10v25L22 48 6 37V13Z" fill="#62b98e" stroke="#2b7e58" stroke-width="2.3" stroke-linejoin="round"/><path d="m22 3 5 16-5 29L6 13Z" fill="#9ad7ad"/><path d="m27 19 11-6-16 35Z" fill="#429f78"/><path d="m6 13 21 6 11-6" fill="none" stroke="#c1ebc7" stroke-width="2"/><circle cx="16" cy="28" r="1.8" fill="#234d37"/><circle cx="27" cy="28" r="1.8" fill="#234d37"/><path d="M18 34q4 4 8 0" fill="none" stroke="#234d37" stroke-width="2" stroke-linecap="round"/></svg><span>宝石奇谭<small>GEM ADVENTURE CLUB</small></span></a>
+    <nav class="nav" aria-label="主要导航">
+      <a href="#island" data-view="island" class="active"><span data-icon="compass"></span>冒险地图</a>
+      <a href="#atlas" data-view="atlas"><span data-icon="gem"></span>图鉴背包</a>
+      <a href="#missions" data-view="missions"><span data-icon="compass"></span>探索任务</a>
+      <a href="#notebook" data-view="notebook"><span data-icon="book"></span>我的发现<span class="nav-count" id="note-count" hidden>0</span></a>
+    </nav>
+    <a class="stamp-pill" href="#stamps" aria-label="查看我的发现印章"><svg class="icon"><use href="#i-stamp"/></svg><span>发现印章 <b id="header-count">0</b> / 3</span></a>
+  </header>
+  <main id="main" tabindex="-1">
+    <section id="view-island" class="page-view">
+<section class="intro" aria-labelledby="island-title"><div><div class="eyebrow">好奇心探险队 · 集合！</div><h1 id="island-title">今天，去哪儿<span>挖个新发现？</span></h1><p>每颗宝石都是一条线索。选一个地点，出发吧！</p></div><div class="buddy"><svg viewBox="0 0 100 110" aria-hidden="true"><ellipse cx="50" cy="101" rx="32" ry="5" fill="#d9e5c5"/><path d="m50 14 27 17v44L50 94 24 75V31Z" fill="#8dcdb0" stroke="#3d8063" stroke-width="3" stroke-linejoin="round"/><path d="m50 14 7 29-7 51-26-63Z" fill="#bde6b6"/><path d="m57 43 20-12-27 63Z" fill="#69b58b"/><path d="m24 31 33 12 20-12" fill="none" stroke="#d5efc8" stroke-width="2"/><path d="M24 39c-10-10-2-17 8-18l8-11q10-10 26 4l3 11c14 8 16 15 7 19Z" fill="#ffda73" stroke="#b69638" stroke-width="2.5"/><path d="M21 33q29 12 58 4" fill="none" stroke="#c9a94d" stroke-width="2.5"/><path d="M43 12q-5 8-4 16" fill="none" stroke="#f8f0b7" stroke-width="3"/><rect x="45" y="22" width="12" height="13" rx="3" fill="#fff9ce" stroke="#a99241" stroke-width="2"/><circle cx="40" cy="58" r="2.4" fill="#28573b"/><circle cx="61" cy="58" r="2.4" fill="#28573b"/><path d="M44 67q8 7 14-1" fill="none" stroke="#28573b" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="33" cy="65" rx="4" ry="2.5" fill="#e4ad93"/><ellipse cx="68" cy="65" rx="4" ry="2.5" fill="#e4ad93"/><path d="m76 60 12-8m-63 9-13-4" fill="none" stroke="#3d8063" stroke-width="4" stroke-linecap="round"/></svg><div class="buddy-speech">我是你的探险搭子<strong>「晶晶」</strong>。<br>地图上的每一站，都藏着地球的小秘密！</div></div></section>
+<section class="map-board" aria-label="宝石冒险岛地图，包含三个可自由探索的站点">
+<div class="map-topline"><span class="map-tag"><svg class="icon"><use href="#i-compass"/></svg>宝石冒险岛 · 探险地图</span><span>所有地点都能自由探索</span></div>
+<svg class="map-svg map-art-wide" viewBox="0 0 1200 525" preserveAspectRatio="none" aria-hidden="true">
+<defs><pattern id="water" width="120" height="70" patternUnits="userSpaceOnUse"><path d="M15 40q12 9 24 0m35 14q12 9 24 0" fill="none" stroke="#b5dfe0" stroke-width="2.5" stroke-linecap="round"/></pattern><g id="pine"><path d="M0 0v40" stroke="#7d8956" stroke-width="6" stroke-linecap="round"/><path d="m0-23-20 34h40Zm0 18-26 35h52Z" fill="#64a776"/><path d="m0-23 20 34H0Zm0 18 26 35H0Z" fill="#3e8d65"/></g><g id="rock"><path d="m0 0 10-17 26-4 17 15-5 17-31 4Z" fill="#a9bc9b"/><path d="m10-17 13 15 30-4-17-15Z" fill="#c5d4b5"/></g><g id="bush"><ellipse cx="0" cy="0" rx="26" ry="15" fill="#81b475"/><circle cx="-10" cy="-9" r="14" fill="#a3c783"/><circle cx="10" cy="-10" r="17" fill="#91be76"/></g></defs>
+<rect width="1200" height="525" fill="#d8f1f0"/><rect width="1200" height="525" fill="url(#water)"/>
+<path d="M41 284C8 190 114 121 234 123c80-68 169-62 250-27 98-66 219-49 280 5 146-23 247 51 275 116 130 10 170 115 103 200-69 90-249 91-351 67-124 41-241 14-312-10-163 37-302-16-305-79-68-14-120-41-133-111Z" fill="#e7d8a6"/>
+<path d="M61 265C40 192 133 139 245 145c83-68 155-63 241-28 91-61 195-42 268 9 133-21 223 40 261 111 124 14 143 100 88 160-70 72-222 72-317 54-118 40-229 11-308-11-154 36-275-13-279-74-76-5-123-38-138-101Z" fill="#bfdc91"/>
+<path d="M257 147c68-57 141-53 226-23 93-54 188-44 266 5-18 54-14 89 38 135-64 69-95 109-67 179-99 22-173-10-231-17-67 17-135 13-188-4 18-62 8-109-34-151-25-46-30-81-10-124Z" fill="#d0e5a3"/>
+<path d="M744 127c-22 46-20 72-2 96 24 38 40 58 17 92-27 31-59 40-48 83 4 22 16 34 24 47" fill="none" stroke="#a6d0aa" stroke-width="33"/>
+<path d="M744 127c-22 46-20 72-2 96 24 38 40 58 17 92-27 31-59 40-48 83 4 22 16 34 24 47" fill="none" stroke="#9cd5d2" stroke-width="23"/>
+<path d="M264 298c49 58 128 72 188 47s67-92 130-100 78 50 123 75 103 35 151 18 82-1 126 41" fill="none" stroke="#a6bd7d" stroke-width="24" stroke-linecap="round"/>
+<path d="M264 298c49 58 128 72 188 47s67-92 130-100 78 50 123 75 103 35 151 18 82-1 126 41" fill="none" stroke="#fff2bd" stroke-width="18" stroke-linecap="round"/>
+<path d="M264 298c49 58 128 72 188 47s67-92 130-100 78 50 123 75 103 35 151 18 82-1 126 41" fill="none" stroke="#e4c97a" stroke-width="3.5" stroke-dasharray="1 14" stroke-linecap="round"/>
+<g transform="translate(220 211)"><ellipse cx="58" cy="67" rx="108" ry="24" fill="#acc184"/><path d="m-39 64 36-86L31 0l28-56 44 49 42 72Z" fill="#b39ccf" stroke="#8e7ab2" stroke-width="3" stroke-linejoin="round"/><path d="m-3-22 17 67 17-45 28-56 8 101 36-52 42 72H-39Z" fill="#8b73ae"/><path d="M9 69V38C9-8 93-8 93 38v31Z" fill="#5e4b7d"/><path d="m20 66 11-29 12 29m25-4 7-38 13 40" fill="#d7a6ed"/><path d="m40 61 14-52 15 52Z" fill="#a878d6"/><path d="m54 9 1 52h14Z" fill="#ce9be8"/><path d="m-3-22 19 11-5 14L-12 0m71-56 16 20-13 4-15-14" fill="#e3d1ec"/><path d="m110 37 10-25 9 25-9 11Z" fill="#d2a5df"/></g>
+<g transform="translate(637 153)"><ellipse cx="29" cy="31" rx="88" ry="20" fill="#a6c180"/><path d="m-48 24-6-40 22-17 25 15 2 42Z" fill="#65ae8c" stroke="#3e9274" stroke-width="2.5"/><path d="m-54-16 25 13 22-15-25-15Z" fill="#a7e0b8"/><path d="m-29-3 24-15 2 42-26 11Z" fill="#3a987b"/><path d="M-3 17V-41l24-19L48-43v60L21 33Z" fill="#92ceab" stroke="#45976e" stroke-width="3"/><path d="m-3-41 24 14 27-16-27-17Z" fill="#c9ebbd"/><path d="M21-27v60l27-16v-60Z" fill="#57ae8a"/><path d="m43 33-1-35 21-13 22 12v36L64 44Z" fill="#7dbba2" stroke="#469b80" stroke-width="2.5"/><path d="m42-2 22 12L85-3 63-15Z" fill="#c5e2be"/><path d="m64 10 21-13v36L64 44Z" fill="#4a9984"/><path d="m-3-41 7 4v45m47-11 5 3v26" fill="none" stroke="#e4f6c7" stroke-width="3" opacity=".8"/></g>
+<g transform="translate(927 314)"><ellipse cx="51" cy="63" rx="93" ry="23" fill="#a7bf7c"/><path d="m-31 62 19-72 51-26L83-9l39 71Z" fill="#d9b077" stroke="#b99761" stroke-width="3" stroke-linejoin="round"/><path d="m39-36 8 96h75L83-9Z" fill="#c29a60"/><path d="M9 63V27c0-42 77-43 77 0v36Z" fill="#7d6544"/><path d="m22 33 22-3 15 16-7 22-28-1-12-18Z" fill="#e5bc42" stroke="#b28b2b" stroke-width="2.5"/><path d="m22 33 8 19 29-6-15-16Z" fill="#ffdf6f"/><path d="m30 52-6 15 28 1 7-22Z" fill="#caa03a"/><path d="m70 23 5-12 13 2 3 13-15 3Z" fill="#f3ce5e"/><path d="m-13-10 20 9 15-20m60 13 12 28" fill="none" stroke="#eed1a5" stroke-width="5" stroke-linecap="round"/></g>
+<use href="#pine" transform="translate(131 262) scale(.85)"/><use href="#pine" transform="translate(158 276) scale(.58)"/><use href="#pine" transform="translate(412 173) scale(.7)"/><use href="#pine" transform="translate(458 153) scale(.9)"/><use href="#pine" transform="translate(504 171) scale(.6)"/><use href="#pine" transform="translate(865 213) scale(.95)"/><use href="#pine" transform="translate(908 226) scale(.7)"/><use href="#pine" transform="translate(840 416) scale(.62)"/><use href="#pine" transform="translate(596 402) scale(.8)"/>
+<use href="#bush" transform="translate(376 404) scale(.8)"/><use href="#bush" transform="translate(166 324) scale(.7)"/><use href="#bush" transform="translate(1052 289) scale(.7)"/><use href="#bush" transform="translate(510 208) scale(.6)"/>
+<use href="#rock" transform="translate(323 153) scale(.48)"/><use href="#rock" transform="translate(801 163) scale(.5)"/><use href="#rock" transform="translate(1056 412) scale(.55)"/><use href="#rock" transform="translate(503 383) scale(.55)"/>
+<g transform="translate(711 326) rotate(16)"><rect x="-22" y="-18" width="53" height="42" rx="5" fill="#c19461" stroke="#927345" stroke-width="2"/><path d="M-19-9h47m-47 10h47m-47 10h47" stroke="#e1b27c" stroke-width="5"/><path d="M-20-23v52m47-52v52" stroke="#896e47" stroke-width="4" stroke-linecap="round"/></g>
+<g fill="#f8f9e5" opacity=".9"><path d="M82 89c-7-22 18-28 27-13 6-26 42-24 47-2 24-9 38 16 19 23H86Z"/><path d="M1016 118c-7-22 18-28 27-13 6-26 42-24 47-2 24-9 38 16 19 23h-88Z"/></g>
+<g fill="#f4d25c"><circle cx="207" cy="399" r="4"/><circle cx="224" cy="405" r="3"/><circle cx="809" cy="261" r="4"/><circle cx="824" cy="270" r="3"/><circle cx="590" cy="137" r="4"/></g><g stroke="#83ad79" stroke-width="2" stroke-linecap="round"><path d="m325 377 4-8 4 8m142-89 4-8 4 8m345 83 4-8 4 8m156-104 4-8 4 8m-390 188 4-8 4 8"/></g>
+</svg>
+<svg class="map-svg map-art-mobile" style="display:none" viewBox="0 0 360 530" preserveAspectRatio="none" aria-hidden="true">
+<rect width="360" height="530" fill="#d8f1f0"/><rect width="360" height="530" fill="url(#water)"/>
+<path d="M35 158C6 85 95 70 145 82c77-35 149-5 149 61 64 44 57 114 11 153 48 44 45 122-10 163-67 66-191 46-223-10-68-20-79-82-48-133-14-46-6-93 18-112Z" fill="#e7d8a6"/>
+<path d="M50 155C24 99 98 87 145 96c72-28 128-4 134 53 56 39 51 105 7 143 51 44 43 111-3 150-64 58-171 41-201-8-60-18-67-70-39-118-10-46-2-89 24-111Z" fill="#c3de98"/>
+<path d="M244 104c-57 63-88 107-49 148s66 58 33 107-39 72-14 105" fill="none" stroke="#a1d2cc" stroke-width="17"/>
+<path d="M129 166c-22 55 1 73 40 83s82 23 71 60-39 47-76 58-45 33-35 67" fill="none" stroke="#a9bf81" stroke-width="20" stroke-linecap="round"/><path d="M129 166c-22 55 1 73 40 83s82 23 71 60-39 47-76 58-45 33-35 67" fill="none" stroke="#fff0b5" stroke-width="15" stroke-linecap="round"/><path d="M129 166c-22 55 1 73 40 83s82 23 71 60-39 47-76 58-45 33-35 67" fill="none" stroke="#ddbd63" stroke-width="3" stroke-dasharray="1 11" stroke-linecap="round"/>
+<g transform="translate(80 95)"><path d="m-14 49 23-55 20 15 18-37 29 32 27 45Z" fill="#a78bc8" stroke="#8b70ad" stroke-width="2"/><path d="m47-28 4 67 25-35 27 45H-14L9-6l10 45 10-30Z" fill="#8b72ad"/><path d="M16 53V31C16-1 72-1 72 31v22Z" fill="#594573"/><path d="m26 51 8-26 10 26m-3 0 9-38 12 38Z" fill="#c194e4"/></g>
+<g transform="translate(222 254)"><ellipse cx="5" cy="24" rx="47" ry="9" fill="#aac67e"/><path d="m-33 17-1-32 18-13 18 13v32Z" fill="#80c9a1" stroke="#459572" stroke-width="2"/><path d="m-34-15 18 10L2-15l-18-13Z" fill="#c4eaba"/><path d="M-3 22V-32l19-13 20 13v54L16 32Z" fill="#8ed1a6" stroke="#459572" stroke-width="2"/><path d="m-3-32 19 11 20-11-20-13Z" fill="#cef0c5"/><path d="m16-21 20-11v54L16 32Z" fill="#4faa85"/><path d="m31 27 1-24 14-10 16 10v24L47 35Z" fill="#72b79a" stroke="#459572" stroke-width="2"/></g>
+<g transform="translate(92 379)"><path d="m-13 38 10-46 34-17 29 18 25 45Z" fill="#d7af76" stroke="#b28f57" stroke-width="2"/><path d="m31-25 5 63h49L60-7Z" fill="#c49c60"/><path d="M9 39V16c0-28 52-28 52 0v23Z" fill="#826844"/><path d="m21 16 15-2 10 11-5 15H23l-8-12Z" fill="#e8bd44" stroke="#b48b26" stroke-width="1.5"/><path d="m21 16 6 12 19-3-10-11Z" fill="#ffdf72"/></g>
+<use href="#pine" transform="translate(238 173) scale(.65)"/><use href="#pine" transform="translate(269 187) scale(.4)"/><use href="#pine" transform="translate(72 275) scale(.6)"/><use href="#pine" transform="translate(95 290) scale(.4)"/><use href="#pine" transform="translate(262 405) scale(.6)"/><use href="#pine" transform="translate(238 418) scale(.4)"/><use href="#bush" transform="translate(92 216) scale(.5)"/><use href="#bush" transform="translate(263 352) scale(.45)"/><use href="#bush" transform="translate(158 472) scale(.5)"/><use href="#rock" transform="translate(170 170) scale(.35)"/><use href="#rock" transform="translate(69 347) scale(.35)"/>
+<g fill="#f8f9e7"><path d="M15 87c-4-11 9-19 17-11 5-15 26-14 30 1 14-5 23 8 13 14H20Z"/><path d="M280 461c-4-11 9-19 17-11 5-15 26-14 30 1 14-5 23 8 13 14h-55Z"/></g><g fill="#eec95b"><circle cx="177" cy="205" r="3"/><circle cx="184" cy="212" r="2"/><circle cx="125" cy="315" r="3"/><circle cx="135" cy="321" r="2"/><circle cx="228" cy="446" r="3"/></g>
+</svg>
+<div class="compass" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20" stroke-width=".7"/><path d="m12 4 3 8-3 8-3-8Z" fill="#97baa0" stroke="#78a58d" stroke-width=".7"/><path d="m12 4 3 8h-3Z" fill="#fffbe0"/></svg></div>
+<button class="station station-one" data-station="amethyst" aria-label="探索第一站：紫水晶洞"><span class="marker">1</span><span class="station-label"><svg class="icon"><use href="#i-gem"/></svg>紫水晶洞</span><small>紫色的小秘密</small></button>
+<button class="station station-two" data-station="fluorite" aria-label="探索第二站：萤石山谷"><span class="marker">2</span><span class="station-label"><svg class="icon"><use href="#i-gem"/></svg>萤石山谷</span><small>寻找彩色积木</small></button>
+<button class="station station-three" data-station="pyrite" aria-label="探索第三站：金色矿洞"><span class="marker">3</span><span class="station-label"><svg class="icon"><use href="#i-gem"/></svg>金色矿洞</span><small>金灿灿的谜题</small></button>
+<span class="map-caption"><svg class="icon"><use href="#i-leaf"/></svg>这是一张想象地图 · 真实标本藏在任务里</span>
+</section>
+<div class="quick-start"><div class="start-copy"><span class="round-icon"><svg class="icon"><use href="#i-compass"/></svg></span><div><strong id="start-title">第一次来？晶晶陪你去找紫色的秘密。</strong><p id="start-note">看一看标本 → 解开一个谜题 → 收下一枚发现印章</p></div></div><button class="action yellow" id="start-button" data-station="amethyst">出发！去紫水晶洞 <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+<section id="stamps" aria-labelledby="stamp-title"><div class="section-title"><h2 id="stamp-title"><svg class="icon"><use href="#i-stamp"/></svg>我的发现印章</h2><p id="stamp-subtitle">不用赶路，每一个新发现都值得收藏。</p></div><div class="stamp-grid" id="stamp-grid"></div><p class="island-storage" id="island-save-status">印章保存在当前浏览器，下次可以接着探索。</p><p class="sr-only" role="status" id="progress-status">已经获得 0 枚发现印章。</p></section>
+<div class="island-handoff"><a class="action secondary" href="#atlas">打开我的图鉴背包 →</a><a class="action secondary" href="#missions">带着实物做个小任务 →</a></div><div class="explorer-tip"><details><summary><svg class="icon"><use href="#i-leaf"/></svg>探险队的小约定 <span aria-hidden="true">⌄</span></summary><p>用眼睛仔细观察，轻拿轻放。不敲击、不刮划、不研磨，不把宝石放进嘴里。照片只能提供线索，不能用来鉴定未知的石头。观察真实标本时，请家长陪你一起探索。</p></details><span>带上好奇心，就可以出发。</span></div>
+</section>
+    <section id="view-atlas" class="page-view" hidden>
+      <section class="library" id="gem-library" aria-labelledby="library-title">
+        <div class="section-heading"><div><div class="eyebrow muted">每颗宝石，都有自己的故事</div><h1 id="library-title">图鉴背包<span class="section-count">08</span></h1><p>选一颗喜欢的，让好奇心带路。</p></div><label class="search"><span data-icon="search"></span><input type="search" id="gem-search" placeholder="找一找宝石的名字、颜色…" aria-label="搜索宝石"><kbd>/</kbd></label></div>
+        <div class="filter-row"><div id="color-filters" class="filters" role="group" aria-label="按颜色筛选宝石"></div><button class="saved-filter" id="saved-filter" aria-pressed="false"><span data-icon="bookmark"></span>我的收藏<span id="saved-count">0</span></button></div>
+        <div class="result-summary sr-only" id="result-summary" aria-live="polite"></div>
+        <div class="gem-grid" id="gem-grid"></div>
+        <div id="empty-results" class="empty-state" hidden><span data-icon="search"></span><h3>这颗宝石还没被找到</h3><p>试试“水晶”“绿色”，或者看看全部宝石。</p><button class="button secondary" id="reset-filters">查看全部宝石</button></div>
+      </section>
+      <section class="wonder-banner"><div class="wonder-drawing" aria-hidden="true">?<span>✧</span></div><div><div class="eyebrow">好奇心补给站</div><h2>紫水晶和白水晶，竟然是亲戚？</h2><p>它们看起来不同，却有相同的主要化学成分。颜色背后，还有更多故事。</p></div><button class="button secondary" data-open-gem="amethyst">去找答案 <span data-icon="arrow-right"></span></button></section>
+    </section>
+    <section id="view-missions" class="page-view" hidden>
+      <div class="page-intro"><div class="eyebrow">带上宝石盒，开始观察</div><h1>宝石盒，就是你的实验室。</h1><p>一颗宝石、一点光、一个好问题。准备好，动手发现吧。</p></div>
+      <div class="safety-strip"><span data-icon="heart"></span><p>温柔对待每颗标本：只观察，不刮划、不敲碎、不入口。探索后洗手；尖锐、细碎或会掉粉的标本请家长帮助。</p></div>
+      <div id="mission-grid" class="mission-grid"></div>
+      <div class="question-box"><span data-icon="sparkles"></span><div><h3>科学探索，不一定要有标准答案。</h3><p>“我还不确定”也是一个很好的发现。记录你看见的，再找证据来验证。</p></div></div>
+    </section>
+    <section id="view-notebook" class="page-view" hidden>
+      <div class="section-heading page-intro"><div><div class="eyebrow">我的发现册</div><h1>我的小小发现</h1><p>每一次仔细观察，都值得被记下来。</p></div><button class="button primary" id="new-note"><span data-icon="plus"></span>写一条发现</button></div>
+      <div class="notebook-stats"><div><span data-icon="gem"></span><strong id="visited-stat">0</strong><span>种宝石已认识</span></div><div><span data-icon="bookmark"></span><strong id="collection-stat">0</strong><span>颗宝石已收藏</span></div><div><span data-icon="pencil"></span><strong id="notes-stat">0</strong><span>条珍贵的发现</span></div></div>
+      <div class="notebook-toolbar"><h2>探索手记</h2><button class="text-button" id="export-notes"><span data-icon="download"></span>导出手记</button></div>
+      <div class="notes-grid" id="notes-grid"></div>
+      <div class="empty-state notebook-empty" id="notebook-empty"><div class="empty-illustration" data-icon="book"></div><h2>第一条发现，等你来写。</h2><p>拿起一颗宝石，看看它的颜色、形状和光泽。<br>写下“我发现了……”或“我想知道……”。</p><button class="button primary" id="first-note">记录我的发现 <span data-icon="pencil"></span></button></div>
+      <div class="storage-note"><span data-icon="lock"></span><span>手记和收藏保存在当前浏览器中，不会上传。换设备或清除浏览器数据后不会保留，记得定期导出。</span></div>
+    </section>
+  </main>
+  <footer class="footer"><div class="footer-brand"><span>✦</span> 宝石奇谭<small>让好奇心，闪闪发光。</small></div><div><a href="playground/">风格 Playground ↗</a><button data-info="sources">资料与图片来源</button><button data-info="parents">给家长的话</button></div><span class="footer-note">用观察认识自然，用证据回答好奇。</span></footer>
+  <dialog id="explore-dialog" aria-labelledby="dialog-title"><div id="dialog-content"></div></dialog>
+  <dialog id="gem-dialog" class="gem-dialog"><div id="gem-detail"></div></dialog>
+  <dialog id="note-dialog" class="note-dialog"><form id="note-form"><div class="dialog-heading"><div><div class="eyebrow">一条珍贵的小发现</div><h2 id="note-dialog-title">记下一点新发现</h2></div><button type="button" class="circle-button" data-close aria-label="关闭手记"><span data-icon="x"></span></button></div><input type="hidden" id="note-id"><label class="form-label" for="note-gem">这次观察了什么？</label><select id="note-gem" required></select><label class="form-label" for="note-text">我发现了 / 我想知道</label><textarea id="note-text" required maxlength="1200" rows="6" placeholder="它在光下看起来……我注意到……下一次我想……"></textarea><div class="form-bottom"><small>不用写得完美，写下真实看见的就好。</small><span id="note-char-count">0 / 1200</span></div><p class="form-error" id="note-error" role="alert" hidden></p><button class="button primary full" type="submit">保存这条发现 <span data-icon="check"></span></button></form></dialog>
+  <dialog id="info-dialog" class="info-dialog"><div id="info-content"></div></dialog>
+  <dialog id="mission-dialog" class="mission-dialog"><div id="mission-content"></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
