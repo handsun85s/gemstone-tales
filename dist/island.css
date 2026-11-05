@@ -8,3 +8,56 @@
 .map-svg,.buddy>svg,.brand>svg{stroke:none;fill:none}
 .island-handoff{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:18px 0}
 .island-storage{color:#718568;font-size:12px;line-height:1.9;margin:14px 0 0}.island-storage.unsaved{color:#9b7133;background:#fff0c8;padding:10px 14px;border-radius:9px}
+
+/* The map keeps its three familiar shortcuts. The full route lives directly below it. */
+.trail-board { margin: 26px 0 34px; }
+.route-picker, .route-badges { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+.route-choice, .route-badge {
+  min-width:0; border:2px solid #d6e3cb; border-radius:16px; background:#fbfdf5;
+  padding:12px; color:#284b37; display:grid; justify-items:start; gap:4px; text-align:left;
+}
+.route-choice { cursor:pointer; }
+.route-choice:hover, .route-choice[aria-pressed="true"] { background:var(--route-tint); border-color:#568162; }
+.route-choice[aria-pressed="true"] { box-shadow:inset 0 -4px #568162; }
+.route-choice > span, .route-badge > span { font-size:22px; line-height:1.2; }
+.route-choice strong, .route-badge strong { font-size:15px; line-height:1.5; }
+.route-choice small, .route-badge small, .station-tile small { color:#4e654f; font-size:12px; line-height:1.4; }
+.route-panel { margin-top:12px; padding:18px; border:2px solid #d6e3cb; border-radius:20px; background:var(--route-tint,#edf6df); }
+.route-heading h3 { font-size:22px; color:#294e37; margin:0; }
+.route-heading p { margin:3px 0 14px; color:#4d6250; font-size:14px; }
+.station-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:9px; }
+.station-tile {
+  min-height:94px; padding:10px; display:grid; justify-items:start; align-content:start; gap:4px;
+  text-align:left; border:1px solid #becfb7; border-radius:13px; background:#fffdf7; color:#294e37; cursor:pointer;
+}
+.station-tile:hover { border-color:#568162; background:#f7faec; }
+.station-tile strong { line-height:1.4; font-size:14px; }
+.trail-number { min-width:27px; padding:2px 5px; border-radius:7px; background:#e8eee0; color:#45614d; font-size:12px; font-weight:800; text-align:center; }
+.trail-number.earned { background:#396b50; color:white; }
+.case-banner { margin-top:13px; padding:12px; background:#fffdf6; border:1px dashed #a59566; border-radius:13px; display:flex; gap:12px; justify-content:space-between; align-items:center; }
+.case-banner span, .case-banner strong { display:block; }
+.case-banner span { color:#6c5b31; font-size:12px; }
+.case-banner p { font-size:13px; margin:3px 0 0; color:#53634e; }
+.case-banner .action:disabled { background:#e9eddf; color:#505e4c; border-color:#cdd8c6; cursor:default; box-shadow:none; transform:none; }
+.route-badge.earned { background:#fff5cc; border-color:#a7893c; }
+.route-badge progress { width:100%; height:10px; accent-color:#487956; margin-top:4px; }
+#explore-dialog .specimen { margin:0; }
+.evidence-list { display:grid; gap:7px; margin:10px 0 14px; padding-left:20px; color:#36543d; font-size:14px; line-height:1.65; }
+.quiz-evidence { margin:0 0 14px; padding:9px 12px; border:1px solid #d3e3ca; border-radius:12px; background:#f5f9ed; }
+.quiz-evidence summary { cursor:pointer; color:#30573e; font-weight:800; }
+.quiz-evidence .evidence-list { margin-bottom:3px; }
+.illustration-label { position:absolute; top:10px; right:10px; padding:3px 8px; border-radius:8px; background:#fffaf0; color:#325341; font-size:11px; }
+.detail-illustration-label { display:block; color:#46634e; font-size:12px; }
+@media(max-width:720px) {
+  .route-picker,.route-badges { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .station-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+@media(max-width:420px) {
+  .route-picker,.route-badges,.station-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .route-panel { padding:12px; }
+  .case-banner { align-items:stretch; flex-direction:column; }
+  #explore-dialog .stepper { gap:4px; }
+  #explore-dialog .stepper i { width:9px; }
+  #explore-dialog .specimen { margin-bottom:15px; }
+}
+.trail-jump { display:inline-flex; min-height:40px; align-items:center; color:#28543d; font-weight:800; text-underline-offset:4px; }

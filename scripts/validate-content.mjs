@@ -16,6 +16,7 @@ const httpsUrl = value => {
 export function loadContent() {
   const context = { window: {} };
   vm.runInNewContext(fs.readFileSync(path.join(root, 'dist/gems.js'), 'utf8'), context, { timeout: 1000 });
+  vm.runInNewContext(fs.readFileSync(path.join(root, 'dist/gems-expansion.js'), 'utf8'), context, { timeout: 1000 });
   return {
     gems: context.window.GEMS,
     credits: JSON.parse(fs.readFileSync(path.join(root, 'dist/assets/credits.json'), 'utf8')),
@@ -41,7 +42,7 @@ export function validateContent(gems, credits, assetExists = file => {
     require(!ids.has(g.id), `${label}：宝石 ID 重复。`);
     require(!names.has(g.name), `${label}：中文名称重复。`);
     ids.add(g.id); names.add(g.name);
-    require(['紫色','无色','粉色','多色','金色','绿色','蓝色'].includes(g.color), `${label}：颜色必须能被现有筛选器识别。`);
+    require(['紫色','无色','粉色','多色','金色','绿色','蓝色','红色','黄色','橙色','棕色','黑色','白色'].includes(g.color), `${label}：颜色必须能被现有筛选器识别。`);
     const match = String(g.hardness).match(/^(\d+(?:\.\d+)?)(?:[–-](\d+(?:\.\d+)?))?$/);
     const min = match ? Number(match[1]) : NaN;
     const max = match ? Number(match[2] || match[1]) : NaN;
@@ -70,7 +71,10 @@ export function validateContent(gems, credits, assetExists = file => {
     require(!!license, `${label}：当前图片须明确使用 CC BY 或 CC BY-SA 许可。`);
     if (license) require(photo.licenseUrl?.replace(/\/$/, '') === `https://creativecommons.org/licenses/${license[1].toLowerCase()}/${license[2]}`, `${label}：许可证名称与许可链接不一致。`);
   }
-  for (const id of ids) require(photoIds.has(id), `${id}：缺少图片署名与许可记录。`);
+  for (const gem of gems) {
+    if (gem.illustration === true) require(assetExists('gem-symbol.svg'), '缺少宝石图标。');
+    else require(photoIds.has(gem.id), gem.id + '：缺少图片署名与许可记录。');
+  }
   return errors;
 }
 

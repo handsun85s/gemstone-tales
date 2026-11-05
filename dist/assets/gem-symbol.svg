@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 200" role="img" aria-label="宝石图标">
+  <ellipse cx="130" cy="174" rx="76" ry="12" fill="#2d624c" opacity=".13"/>
+  <path d="m72 47 111-8 38 52-89 73-89-61Z" fill="#9bd6b2" stroke="#305f4c" stroke-width="4" stroke-linejoin="round"/>
+  <path d="m72 47 30 47 30 70-89-61Z" fill="#67ad97"/>
+  <path d="m183 39-23 51-28 74 89-73Z" fill="#4c9683"/>
+  <path d="m72 47 111-8-23 51-58 4Z" fill="#d7f3cf"/>
+  <path d="m72 47 30 47 30 70 28-74 23-51m-140 64 59-9 58-4 61 1" fill="none" stroke="#305f4c" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M204 21v25m-12-13h24M47 46v19m-9-9h18m174 68v17m-8-9h16" stroke="#aa791c" stroke-width="3" stroke-linecap="round"/>
+</svg>

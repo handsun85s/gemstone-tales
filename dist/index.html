@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="island.css">
   <link rel="stylesheet" href="adventure-theme.css">
   <script src="gems.js" defer></script>
+  <script src="gems-expansion.js" defer></script>
+  <script src="island-routes.js" defer></script>
   <script src="app.js" defer></script>
   <script src="island-progress.js" defer></script>
   <script src="island.js" defer></script>
@@ -35,13 +37,13 @@
       <a href="#missions" data-view="missions"><span data-icon="compass"></span>探索任务</a>
       <a href="#notebook" data-view="notebook"><span data-icon="book"></span>我的发现<span class="nav-count" id="note-count" hidden>0</span></a>
     </nav>
-    <a class="stamp-pill" href="#stamps" aria-label="查看我的发现印章"><svg class="icon"><use href="#i-stamp"/></svg><span>发现印章 <b id="header-count">0</b> / 3</span></a>
+    <a class="stamp-pill" href="#stamps" aria-label="查看我的发现印章"><svg class="icon"><use href="#i-stamp"/></svg><span>发现印章 <b id="header-count">0</b> / <span id="header-total">50</span></span></a>
   </header>
   <main id="main" tabindex="-1">
     <section id="view-island" class="page-view">
-<section class="intro" aria-labelledby="island-title"><div><div class="eyebrow">好奇心探险队 · 集合！</div><h1 id="island-title">今天，去哪儿<span>挖个新发现？</span></h1><p>每颗宝石都是一条线索。选一个地点，出发吧！</p></div><div class="buddy"><svg viewBox="0 0 100 110" aria-hidden="true"><ellipse cx="50" cy="101" rx="32" ry="5" fill="#d9e5c5"/><path d="m50 14 27 17v44L50 94 24 75V31Z" fill="#8dcdb0" stroke="#3d8063" stroke-width="3" stroke-linejoin="round"/><path d="m50 14 7 29-7 51-26-63Z" fill="#bde6b6"/><path d="m57 43 20-12-27 63Z" fill="#69b58b"/><path d="m24 31 33 12 20-12" fill="none" stroke="#d5efc8" stroke-width="2"/><path d="M24 39c-10-10-2-17 8-18l8-11q10-10 26 4l3 11c14 8 16 15 7 19Z" fill="#ffda73" stroke="#b69638" stroke-width="2.5"/><path d="M21 33q29 12 58 4" fill="none" stroke="#c9a94d" stroke-width="2.5"/><path d="M43 12q-5 8-4 16" fill="none" stroke="#f8f0b7" stroke-width="3"/><rect x="45" y="22" width="12" height="13" rx="3" fill="#fff9ce" stroke="#a99241" stroke-width="2"/><circle cx="40" cy="58" r="2.4" fill="#28573b"/><circle cx="61" cy="58" r="2.4" fill="#28573b"/><path d="M44 67q8 7 14-1" fill="none" stroke="#28573b" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="33" cy="65" rx="4" ry="2.5" fill="#e4ad93"/><ellipse cx="68" cy="65" rx="4" ry="2.5" fill="#e4ad93"/><path d="m76 60 12-8m-63 9-13-4" fill="none" stroke="#3d8063" stroke-width="4" stroke-linecap="round"/></svg><div class="buddy-speech">我是你的探险搭子<strong>「晶晶」</strong>。<br>地图上的每一站，都藏着地球的小秘密！</div></div></section>
-<section class="map-board" aria-label="宝石冒险岛地图，包含三个可自由探索的站点">
-<div class="map-topline"><span class="map-tag"><svg class="icon"><use href="#i-compass"/></svg>宝石冒险岛 · 探险地图</span><span>所有地点都能自由探索</span></div>
+<section class="intro" aria-labelledby="island-title"><div><div class="eyebrow">好奇心探险队 · 集合！</div><h1 id="island-title">今天，去哪儿<span>挖个新发现？</span></h1><p>五章冒险，50 种宝石和观赏材料。跟着晶晶找证据、解案件！</p><a class="trail-jump" href="#island-trails">查看五章路线 ↓</a></div><div class="buddy"><svg viewBox="0 0 100 110" aria-hidden="true"><ellipse cx="50" cy="101" rx="32" ry="5" fill="#d9e5c5"/><path d="m50 14 27 17v44L50 94 24 75V31Z" fill="#8dcdb0" stroke="#3d8063" stroke-width="3" stroke-linejoin="round"/><path d="m50 14 7 29-7 51-26-63Z" fill="#bde6b6"/><path d="m57 43 20-12-27 63Z" fill="#69b58b"/><path d="m24 31 33 12 20-12" fill="none" stroke="#d5efc8" stroke-width="2"/><path d="M24 39c-10-10-2-17 8-18l8-11q10-10 26 4l3 11c14 8 16 15 7 19Z" fill="#ffda73" stroke="#b69638" stroke-width="2.5"/><path d="M21 33q29 12 58 4" fill="none" stroke="#c9a94d" stroke-width="2.5"/><path d="M43 12q-5 8-4 16" fill="none" stroke="#f8f0b7" stroke-width="3"/><rect x="45" y="22" width="12" height="13" rx="3" fill="#fff9ce" stroke="#a99241" stroke-width="2"/><circle cx="40" cy="58" r="2.4" fill="#28573b"/><circle cx="61" cy="58" r="2.4" fill="#28573b"/><path d="M44 67q8 7 14-1" fill="none" stroke="#28573b" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="33" cy="65" rx="4" ry="2.5" fill="#e4ad93"/><ellipse cx="68" cy="65" rx="4" ry="2.5" fill="#e4ad93"/><path d="m76 60 12-8m-63 9-13-4" fill="none" stroke="#3d8063" stroke-width="4" stroke-linecap="round"/></svg><div class="buddy-speech">我是你的探险搭子<strong>「晶晶」</strong>。<br>地图上的每一站，都藏着地球的小秘密！</div></div></section>
+<section class="map-board" aria-label="宝石冒险岛地图，三个快速入口">
+<div class="map-topline"><span class="map-tag"><svg class="icon"><use href="#i-compass"/></svg>宝石冒险岛 · 探险地图</span><span>三个快速入口</span></div>
 <svg class="map-svg map-art-wide" viewBox="0 0 1200 525" preserveAspectRatio="none" aria-hidden="true">
 <defs><pattern id="water" width="120" height="70" patternUnits="userSpaceOnUse"><path d="M15 40q12 9 24 0m35 14q12 9 24 0" fill="none" stroke="#b5dfe0" stroke-width="2.5" stroke-linecap="round"/></pattern><g id="pine"><path d="M0 0v40" stroke="#7d8956" stroke-width="6" stroke-linecap="round"/><path d="m0-23-20 34h40Zm0 18-26 35h52Z" fill="#64a776"/><path d="m0-23 20 34H0Zm0 18 26 35H0Z" fill="#3e8d65"/></g><g id="rock"><path d="m0 0 10-17 26-4 17 15-5 17-31 4Z" fill="#a9bc9b"/><path d="m10-17 13 15 30-4-17-15Z" fill="#c5d4b5"/></g><g id="bush"><ellipse cx="0" cy="0" rx="26" ry="15" fill="#81b475"/><circle cx="-10" cy="-9" r="14" fill="#a3c783"/><circle cx="10" cy="-10" r="17" fill="#91be76"/></g></defs>
 <rect width="1200" height="525" fill="#d8f1f0"/><rect width="1200" height="525" fill="url(#water)"/>
@@ -79,15 +81,24 @@
 <button class="station station-one" data-station="amethyst" aria-label="探索第一站：紫水晶洞"><span class="marker">1</span><span class="station-label"><svg class="icon"><use href="#i-gem"/></svg>紫水晶洞</span><small>紫色的小秘密</small></button>
 <button class="station station-two" data-station="fluorite" aria-label="探索第二站：萤石山谷"><span class="marker">2</span><span class="station-label"><svg class="icon"><use href="#i-gem"/></svg>萤石山谷</span><small>寻找彩色积木</small></button>
 <button class="station station-three" data-station="pyrite" aria-label="探索第三站：金色矿洞"><span class="marker">3</span><span class="station-label"><svg class="icon"><use href="#i-gem"/></svg>金色矿洞</span><small>金灿灿的谜题</small></button>
-<span class="map-caption"><svg class="icon"><use href="#i-leaf"/></svg>这是一张想象地图 · 真实标本藏在任务里</span>
+<span class="map-caption"><svg class="icon"><use href="#i-leaf"/></svg>想象地图 · 下方还有五章完整路线</span>
 </section>
-<div class="quick-start"><div class="start-copy"><span class="round-icon"><svg class="icon"><use href="#i-compass"/></svg></span><div><strong id="start-title">第一次来？晶晶陪你去找紫色的秘密。</strong><p id="start-note">看一看标本 → 解开一个谜题 → 收下一枚发现印章</p></div></div><button class="action yellow" id="start-button" data-station="amethyst">出发！去紫水晶洞 <svg class="icon"><use href="#i-arrow"/></svg></button></div>
-<section id="stamps" aria-labelledby="stamp-title"><div class="section-title"><h2 id="stamp-title"><svg class="icon"><use href="#i-stamp"/></svg>我的发现印章</h2><p id="stamp-subtitle">不用赶路，每一个新发现都值得收藏。</p></div><div class="stamp-grid" id="stamp-grid"></div><p class="island-storage" id="island-save-status">印章保存在当前浏览器，下次可以接着探索。</p><p class="sr-only" role="status" id="progress-status">已经获得 0 枚发现印章。</p></section>
+<div class="quick-start"><div class="start-copy"><span class="round-icon"><svg class="icon"><use href="#i-compass"/></svg></span><div><strong id="start-title">第一次来？晶晶陪你去找紫色的秘密。</strong><p id="start-note">找证据 → 两道挑战 → 收下发现印章</p></div></div><button class="action yellow" id="start-button" data-station="amethyst">出发！去紫水晶洞 <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+<section class="trail-board" id="island-trails" aria-labelledby="trail-title">
+  <div class="section-title"><h2 id="trail-title"><svg class="icon"><use href="#i-compass"/></svg>五章调查路线</h2><p>50 种宝石和观赏材料，选一章开始。</p></div>
+  <div id="route-picker" class="route-picker" role="group" aria-label="选择冒险章节"></div>
+  <div class="route-panel" id="route-panel" aria-labelledby="route-title">
+    <div class="route-heading"><h3 id="route-title"></h3><p id="route-topic"></p></div>
+    <div id="station-grid" class="station-grid"></div>
+    <div class="case-banner"><div><span>本章综合案件</span><strong id="case-name"></strong><p id="case-status"></p></div><button id="chapter-case" class="action" disabled>打开案件</button></div>
+  </div>
+</section>
+<section id="stamps" aria-labelledby="stamp-title"><div class="section-title"><h2 id="stamp-title"><svg class="icon"><use href="#i-stamp"/></svg>我的发现印章</h2><p id="stamp-subtitle">不用赶路，每一个新发现都值得收藏。</p></div><div class="route-badges" id="stamp-grid"></div><p class="island-storage" id="island-save-status">印章保存在当前浏览器，下次可以接着探索。</p><p class="sr-only" role="status" id="progress-status">已经获得 0 枚发现印章。</p></section>
 <div class="island-handoff"><a class="action secondary" href="#atlas">打开我的图鉴背包 →</a><a class="action secondary" href="#missions">带着实物做个小任务 →</a></div><div class="explorer-tip"><details><summary><svg class="icon"><use href="#i-leaf"/></svg>探险队的小约定 <span aria-hidden="true">⌄</span></summary><p>用眼睛仔细观察，轻拿轻放。不敲击、不刮划、不研磨，不把宝石放进嘴里。照片只能提供线索，不能用来鉴定未知的石头。观察真实标本时，请家长陪你一起探索。</p></details><span>带上好奇心，就可以出发。</span></div>
 </section>
     <section id="view-atlas" class="page-view" hidden>
       <section class="library" id="gem-library" aria-labelledby="library-title">
-        <div class="section-heading"><div><div class="eyebrow muted">每颗宝石，都有自己的故事</div><h1 id="library-title">图鉴背包<span class="section-count">08</span></h1><p>选一颗喜欢的，让好奇心带路。</p></div><label class="search"><span data-icon="search"></span><input type="search" id="gem-search" placeholder="找一找宝石的名字、颜色…" aria-label="搜索宝石"><kbd>/</kbd></label></div>
+        <div class="section-heading"><div><div class="eyebrow muted">每颗宝石，都有自己的故事</div><h1 id="library-title">图鉴背包<span class="section-count">50</span></h1><p>选一颗喜欢的，让好奇心带路。</p></div><label class="search"><span data-icon="search"></span><input type="search" id="gem-search" placeholder="找一找宝石的名字、颜色…" aria-label="搜索宝石"><kbd>/</kbd></label></div>
         <div class="filter-row"><div id="color-filters" class="filters" role="group" aria-label="按颜色筛选宝石"></div><button class="saved-filter" id="saved-filter" aria-pressed="false"><span data-icon="bookmark"></span>我的收藏<span id="saved-count">0</span></button></div>
         <div class="result-summary sr-only" id="result-summary" aria-live="polite"></div>
         <div class="gem-grid" id="gem-grid"></div>

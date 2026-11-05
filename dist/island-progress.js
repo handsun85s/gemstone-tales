@@ -10,15 +10,15 @@
       return value?.version === 1 ? normalize(value.completed, allowed) : [];
     } catch { return []; }
   }
-  function save(storage, completed) {
+  function save(storage, completed, allowed = stationIds) {
     try {
       if (!storage) return false;
-      storage.setItem(key, JSON.stringify({version:1,completed:normalize(completed)}));
+      storage.setItem(key, JSON.stringify({version:1,completed:normalize(completed, allowed)}));
       return true;
     } catch { return false; }
   }
-  function canCollect(stationId, solvedId, step) {
-    return stationIds.includes(stationId) && solvedId === stationId && step === 'quiz';
+  function canCollect(stationId, solvedId, step, allowed = stationIds) {
+    return allowed.includes(stationId) && solvedId === stationId && step === 'quiz';
   }
   scope.GemIslandProgress = Object.freeze({key,stationIds,read,save,canCollect});
 })(globalThis);

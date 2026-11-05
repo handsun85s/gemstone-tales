@@ -34,9 +34,10 @@
   }
   const byId = id => gems.find(g => g.id === id);
   const tint = { amethyst:'#eee8f2',quartz:'#eeefeb','rose-quartz':'#f4e9e8',fluorite:'#e8eee9',pyrite:'#efecdf',malachite:'#e5ebe3',agate:'#f0e7dd',aquamarine:'#e6edef' };
-  const colors = {紫色:'#b29bcb',无色:'#f5f3ea',粉色:'#e2b6bf',多色:'conic-gradient(#b1c4a7,#b1a0d1,#e3bdcb,#b1c4a7)',金色:'#c8b46f',绿色:'#9bb693',蓝色:'#9cbdc8'};
+  const colors = {紫色:'#b29bcb',无色:'#f5f3ea',粉色:'#e2b6bf',多色:'conic-gradient(#b1c4a7,#b1a0d1,#e3bdcb,#b1c4a7)',金色:'#c8b46f',绿色:'#9bb693',蓝色:'#9cbdc8',红色:'#e5a093',黄色:'#e7c76a',橙色:'#ecb18c',棕色:'#b5977e',黑色:'#778084',白色:'#eeede4'};
   const mineralColors = {fluorite:['多色','紫色','绿色','无色']};
   const gemColors = g => mineralColors[g.id] || [g.color];
+  const gemTint = g => tint[g.id] || '#eef3e3';
   const noteDrafts = new Map();
   let state = {saved:[],visited:[],notes:[]};
   let storageAvailable = true;
@@ -78,12 +79,13 @@
     }
   }).catch(() => {});
   const photoPath = id => {
+    if (byId(id).illustration) return 'assets/gem-symbol.svg';
     const photo = photoCredits.find(p => p.id === id);
     return photo ? (photo.file.startsWith('assets/') ? photo.file : `assets/${photo.file.split(/[\\/]/).pop()}`) : `assets/${id}.jpg`;
   };
-  const photoAlt = id => photoCredits.find(p => p.id === id)?.alt || `${byId(id).name}标本照片`;
+  const photoAlt = id => byId(id).illustration ? '宝石图标' : photoCredits.find(p => p.id === id)?.alt || byId(id).name + '标本照片';
   function renderFilters() {
-    $('#color-filters').innerHTML = ['全部宝石','紫色','粉色','绿色','蓝色','金色','多色','无色'].map(color => `<button class="filter${color===activeColor?' active':''}" data-color="${color}" aria-pressed="${color===activeColor}">${color!=='全部宝石'?`<span class="color-dot" style="--dot:${colors[color]}"></span>`:''}${color}</button>`).join('');
+    $('#color-filters').innerHTML = ['全部宝石',...Object.keys(colors)].map(color => `<button class="filter${color===activeColor?' active':''}" data-color="${color}" aria-pressed="${color===activeColor}">${color!=='全部宝石'?`<span class="color-dot" style="--dot:${colors[color]}"></span>`:''}${color}</button>`).join('');
   }
   function renderGems() {
     const query = $('#gem-search').value.trim().toLocaleLowerCase();
@@ -95,7 +97,7 @@
     $('#gem-grid').innerHTML = visible.map(g => {
       const saved = state.saved.includes(g.id);
       const hardness = parseFloat(g.hardness);
-      return `<article class="gem-card" style="--tint:${tint[g.id]}"><button class="gem-image-button" data-open-gem="${g.id}" aria-label="认识${escape(g.name)}"><span class="gem-number">NO. ${String(gems.indexOf(g)+1).padStart(3,'0')}</span><img src="${escape(photoPath(g.id))}" data-gem-image="${g.id}" alt="${escape(photoAlt(g.id))}" loading="lazy" width="280" height="220"></button><button class="bookmark-button" data-save="${g.id}" aria-label="${saved?'取消收藏':'收藏'}${escape(g.name)}" aria-pressed="${saved}">${icon('bookmark')}</button><div class="gem-card-body"><span class="gem-family">${escape(g.family)}</span><div class="gem-name"><h3>${escape(g.name)}</h3><button data-open-gem="${g.id}" aria-label="阅读${escape(g.name)}知识卡">${icon('arrow-up-right')}</button></div><span class="gem-en">${escape(g.en)}</span><p class="gem-tagline">${escape(g.tagline)}</p><div class="gem-meta"><span>${icon('gem')} 莫氏硬度 ${escape(g.hardness)}</span><span class="hardness-dots" aria-hidden="true">${Array.from({length:10},(_,i)=>`<i${i<hardness?' class="filled"':''}></i>`).join('')}</span></div></div></article>`;
+      return `<article class="gem-card" style="--tint:${gemTint(g)}"><button class="gem-image-button" data-open-gem="${g.id}" aria-label="认识${escape(g.name)}"><span class="gem-number">NO. ${String(gems.indexOf(g)+1).padStart(3,'0')}</span>${g.illustration?'<span class="illustration-label">图标</span>':''}<img src="${escape(photoPath(g.id))}" data-gem-image="${g.id}" alt="${escape(photoAlt(g.id))}" loading="lazy" width="280" height="220"></button><button class="bookmark-button" data-save="${g.id}" aria-label="${saved?'取消收藏':'收藏'}${escape(g.name)}" aria-pressed="${saved}">${icon('bookmark')}</button><div class="gem-card-body"><span class="gem-family">${escape(g.family)}</span><div class="gem-name"><h3>${escape(g.name)}</h3><button data-open-gem="${g.id}" aria-label="阅读${escape(g.name)}知识卡">${icon('arrow-up-right')}</button></div><span class="gem-en">${escape(g.en)}</span><p class="gem-tagline">${escape(g.tagline)}</p><div class="gem-meta"><span>${icon('gem')} 莫氏硬度 ${escape(g.hardness)}</span><span class="hardness-dots" aria-hidden="true">${Array.from({length:10},(_,i)=>`<i${i<hardness?' class="filled"':''}></i>`).join('')}</span></div></div></article>`;
     }).join('');
     $('#saved-filter').setAttribute('aria-pressed', String(onlySaved));
     $('#saved-count').textContent = state.saved.length;
@@ -144,7 +146,7 @@
     const g = byId(id); if(!g) return;
     currentGem = g;
     if(!state.visited.includes(id)){state.visited.push(id);persist();updateStats();}
-    $('#gem-detail').innerHTML = `<div class="detail-layout"><aside class="detail-visual" style="--tint:${tint[id]}"><div class="eyebrow">THE GEM COLLECTION · ${String(gems.indexOf(g)+1).padStart(3,'0')}</div><img src="${escape(photoPath(id))}" alt="${escape(photoAlt(g.id))}"><h2 id="gem-dialog-title">${escape(g.name)}</h2><span class="detail-en">${escape(g.en)}</span><div class="detail-properties"><div><span>所属家族</span><strong>${escape(g.family)}</strong></div><div><span>莫氏硬度</span><strong>${escape(g.hardness)} / 10</strong></div><div class="formula-property"><span>主要成分</span><strong>${escape(g.formula)}</strong></div></div><button class="button secondary" id="detail-save" data-save="${id}"></button></aside><div class="detail-content"><button class="circle-button detail-close" data-close aria-label="关闭宝石知识卡">${icon('x')}</button><h3>${escape(g.tagline)}</h3><p class="detail-intro">${escape(g.intro)}</p><div class="detail-tabs" role="tablist" aria-label="宝石知识"><button role="tab" aria-selected="true" aria-controls="detail-panel" id="detail-tab-observe" data-detail-tab="observe">观察线索</button><button role="tab" aria-selected="false" aria-controls="detail-panel" id="detail-tab-story" data-detail-tab="story" tabindex="-1">地球故事</button><button role="tab" aria-selected="false" aria-controls="detail-panel" id="detail-tab-quiz" data-detail-tab="quiz" tabindex="-1">小小挑战</button></div><div class="detail-panel" id="detail-panel" role="tabpanel" aria-labelledby="detail-tab-observe"></div><div class="mini-safety">${icon('shield')}<span>${escape(g.safety)} 硬度是资料中的相对刮划指标，观察时不用自己刮划。</span></div><a class="detail-source" href="${escape(g.source.url)}" target="_blank" rel="noopener noreferrer">知识来源：${escape(g.source.label)} ↗</a></div></div>`;
+    $('#gem-detail').innerHTML = `<div class="detail-layout"><aside class="detail-visual" style="--tint:${gemTint(g)}"><div class="eyebrow">THE GEM COLLECTION · ${String(gems.indexOf(g)+1).padStart(3,'0')}</div><img src="${escape(photoPath(id))}" alt="${escape(photoAlt(g.id))}">${g.illustration?'<span class="detail-illustration-label">宝石图标 · 线索见资料卡</span>':''}<h2 id="gem-dialog-title">${escape(g.name)}</h2><span class="detail-en">${escape(g.en)}</span><div class="detail-properties"><div><span>所属家族</span><strong>${escape(g.family)}</strong></div><div><span>莫氏硬度</span><strong>${escape(g.hardness)} / 10</strong></div><div class="formula-property"><span>主要成分</span><strong>${escape(g.formula)}</strong></div></div><button class="button secondary" id="detail-save" data-save="${id}"></button></aside><div class="detail-content"><button class="circle-button detail-close" data-close aria-label="关闭宝石知识卡">${icon('x')}</button><h3>${escape(g.tagline)}</h3><p class="detail-intro">${escape(g.intro)}</p><div class="detail-tabs" role="tablist" aria-label="宝石知识"><button role="tab" aria-selected="true" aria-controls="detail-panel" id="detail-tab-observe" data-detail-tab="observe">观察线索</button><button role="tab" aria-selected="false" aria-controls="detail-panel" id="detail-tab-story" data-detail-tab="story" tabindex="-1">地球故事</button><button role="tab" aria-selected="false" aria-controls="detail-panel" id="detail-tab-quiz" data-detail-tab="quiz" tabindex="-1">小小挑战</button></div><div class="detail-panel" id="detail-panel" role="tabpanel" aria-labelledby="detail-tab-observe"></div><div class="mini-safety">${icon('shield')}<span>${escape(g.safety)} 硬度是资料中的相对刮划指标，观察时不用自己刮划。</span></div><a class="detail-source" href="${escape(g.source.url)}" target="_blank" rel="noopener noreferrer">知识来源：${escape(g.source.label)} ↗</a></div></div>`;
     $('#gem-dialog').setAttribute('aria-labelledby','gem-dialog-title');
     renderDetailTab('observe'); updateDetailSave();
     $('#gem-dialog').showModal();
@@ -225,7 +227,7 @@
   }
   function openInfo(type) {
     const title=type==='sources'?'每一个故事，都有出处。':'陪孩子，把好奇心留久一点。';
-    const body=type==='sources'?`<p>图鉴采用 GIA、博物馆和地质机构的公开科普资料，按适合孩子阅读的方式重新讲述。知识卡中附有对应来源；照片展示的是特定天然标本，大小、颜色和形状会有差异。</p><h3>知识资料</h3><ul class="source-list">${gems.map(g=>`<li>${escape(g.name)} · <a href="${escape(g.source.url)}" target="_blank" rel="noopener noreferrer">${escape(g.source.label)}</a></li>`).join('')}</ul><h3>标本照片与许可</h3><p>照片在页面中做缩放与混色显示，原始文件未改色。点击许可名或原图链接，可查看复用条件。</p><ul class="source-list photo-credits">${photoCredits.length?photoCredits.map(p=>`<li>${escape(byId(p.id)?.name || p.id)} · ${escape(p.author)} · <a href="${escape(p.licenseUrl)}" target="_blank" rel="noopener noreferrer">${escape(p.license)}</a><br><a href="${escape(p.source || p.url)}" target="_blank" rel="noopener noreferrer">查看原始照片及许可 ↗</a></li>`).join(''):'<li>图片署名暂时未加载，请刷新后查看。</li>'}</ul><p>莫氏硬度是抗刮划能力的相对等级，并不等于抗摔能力。图鉴用于学习观察，不能替代专业鉴定。</p>`:`<p>这是一份为孩子和真实宝石盒准备的探索空间。我们先做好三件事：认识常见标本、学会仔细观察、留下自己的问题。</p><h3>让孩子先说“我看见了什么”</h3><p>先观察，再命名。可以一起问：“你看到了什么？”“你为什么这样想？”“我们还可以找什么证据？”不用急着给出答案，也不把照片相似当成鉴定结论。</p><h3>和宝石安全相处</h3><p>由家长检查尖锐、细碎、掉粉的标本。孩子不入口，不敲击、不刮划、不研磨、不浸泡；观察后洗手。避免直晒、加热和用强光照眼睛。对未知标本先查资料，再安排接触。</p><h3>把实用性质和美好传说分开</h3><p>宝石的颜色、硬度、结构和工业用途可以查证。“疗愈”“转运”等说法属于文化叙事，不能当作已证实的科学功能。本站介绍的是科学知识。</p><h3>手记只留在当前浏览器</h3><p>这里不要求孩子注册，不收集姓名、年龄或照片。收藏、阅读记录和探索手记保存在当前浏览器的本地存储中，不会上传。建议定期在“我的发现”中导出手记；当前版本不能跨设备同步。</p>`;
+    const body=type==='sources'?`<p>图鉴采用 GIA、博物馆和地质机构的公开科普资料，按适合孩子阅读的方式重新讲述。知识卡中附有对应来源；照片展示特定标本，大小、颜色和形状会有差异。标有「图标」的条目用资料卡提供观察线索。</p><h3>知识资料</h3><ul class="source-list">${gems.map(g=>`<li>${escape(g.name)} · <a href="${escape(g.source.url)}" target="_blank" rel="noopener noreferrer">${escape(g.source.label)}</a></li>`).join('')}</ul><h3>标本照片与许可</h3><p>照片在页面中做缩放与混色显示，原始文件未改色。点击许可名或原图链接，可查看复用条件。</p><ul class="source-list photo-credits">${photoCredits.length?photoCredits.map(p=>`<li>${escape(byId(p.id)?.name || p.id)} · ${escape(p.author)} · <a href="${escape(p.licenseUrl)}" target="_blank" rel="noopener noreferrer">${escape(p.license)}</a><br><a href="${escape(p.source || p.url)}" target="_blank" rel="noopener noreferrer">查看原始照片及许可 ↗</a></li>`).join(''):'<li>图片署名暂时未加载，请刷新后查看。</li>'}</ul><p>莫氏硬度是抗刮划能力的相对等级，并不等于抗摔能力。图鉴用于学习观察，不能替代专业鉴定。</p>`:`<p>这是一份为孩子和真实宝石盒准备的探索空间。我们先做好三件事：认识常见标本、学会仔细观察、留下自己的问题。</p><h3>让孩子先说“我看见了什么”</h3><p>先观察，再命名。可以一起问：“你看到了什么？”“你为什么这样想？”“我们还可以找什么证据？”不用急着给出答案，也不把照片相似当成鉴定结论。</p><h3>和宝石安全相处</h3><p>由家长检查尖锐、细碎、掉粉的标本。孩子不入口，不敲击、不刮划、不研磨、不浸泡；观察后洗手。避免直晒、加热和用强光照眼睛。对未知标本先查资料，再安排接触。</p><h3>把实用性质和美好传说分开</h3><p>宝石的颜色、硬度、结构和工业用途可以查证。“疗愈”“转运”等说法属于文化叙事，不能当作已证实的科学功能。本站介绍的是科学知识。</p><h3>手记只留在当前浏览器</h3><p>这里不要求孩子注册，不收集姓名、年龄或照片。收藏、阅读记录和探索手记保存在当前浏览器的本地存储中，不会上传。建议定期在“我的发现”中导出手记；当前版本不能跨设备同步。</p>`;
     $('#info-content').innerHTML=`<div class="dialog-heading"><h2 id="info-title">${title}</h2><button class="circle-button" data-close aria-label="关闭说明">${icon('x')}</button></div><div class="info-body">${body}</div>`;
     $('#info-dialog').setAttribute('aria-labelledby','info-title');$('#info-dialog').showModal();
   }
@@ -236,7 +238,7 @@
     $$('[data-view]').forEach(a=>{const active=a.dataset.view===view;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
     if(view==='notebook')renderNotes();
     if(hash==='gem-library')requestAnimationFrame(()=>$('#gem-library').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'}));
-    else if(hash==='stamps')requestAnimationFrame(()=>$('#stamps').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'}));
+    else if(['stamps','island-trails'].includes(hash))requestAnimationFrame(()=>document.getElementById(hash).scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'}));
     else window.scrollTo({top:0,behavior:'instant'});
   }
   document.addEventListener('click', e => {
@@ -285,7 +287,7 @@
     const id=event.detail?.id;if(byId(id))openGem(id);
   });
   document.addEventListener('click',event=>{
-    const link=event.target.closest('a[data-view],.brand,.stamp-pill');
+    const link=event.target.closest('a[data-view],.brand,.stamp-pill,.trail-jump');
     if(link && link.hash===location.hash){event.preventDefault();route();}
   });
   window.addEventListener('hashchange',route);
