@@ -221,7 +221,8 @@ document.addEventListener('DOMContentLoaded', () => {
     step = nextStep;
     content.innerHTML = header(current.gem ? current.route.title + ' · ' + current.gem.name : current.route.title + ' · 综合案件') +
       stepper() + (step === 'observe' ? observe() : step === 'quiz' ? challenge() : done()) +
-      '<div class="dialog-safety">' + icon('leaf') + '在游戏里比较资料。观察实物时轻拿轻放。</div>';
+      '<div class="dialog-safety">' + icon('leaf') +
+      (step === 'done' ? '观察实物时轻拿轻放。' : '离开后可从头再玩这一站，已领取的印章会保留。') + '</div>';
     dialog.scrollTop = 0;
     const heading = $('#dialog-title');
     heading.tabIndex = -1;
@@ -309,10 +310,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   dialog.addEventListener('close', () => {
+    const station = trigger?.dataset.station;
     renderRoutes();
     if (document.querySelector('dialog[open]')) return;
-    if (trigger?.isConnected) trigger.focus();
-    else $('#route-picker [aria-pressed="true"]').focus();
+    const replacement = station && $('#route-panel [data-station="' + station + '"]');
+    (trigger?.isConnected ? trigger : replacement || $('#route-picker [aria-pressed="true"]')).focus();
   });
   dialog.addEventListener('click', event => {
     if (event.target !== dialog) return;

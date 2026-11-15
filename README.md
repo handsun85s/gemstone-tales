@@ -6,6 +6,8 @@
 
 仓库通过 [GitHub Actions](.github/workflows/pages.yml) 自动校验并发布 `dist/`，不需要安装依赖或设置部署密钥。每次推送到 `main` 或手动运行工作流都会触发发布。
 
+每次迭代通过本地验收后，及时提交并推送到 `main`。等该提交的 GitHub Actions 部署成功后，打开公开网址验证本次修改，再交付。遇到部署失败时检查日志、修复并复测。
+
 首次使用需要在仓库 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**。部署结果可在仓库 **Actions → Deploy gemstone-tales to GitHub Pages** 查看；成功后的网址由该次工作流的 `github-pages` 环境提供。
 
 站点资源使用相对路径，支持 GitHub Pages 的仓库子路径。发布文件仅包含静态网站，不包含开发配置或访问凭据。
@@ -39,6 +41,8 @@ npm start
 选择存于独立键 `gemstone-tales:playground-choice:v1`，不会自动替换正式界面。原型内部进度仅在当前页面体验中保留，与正式版手记互不影响；工坊可导出原创几何拼贴 SVG。设计依据、使用方式见 [Playground 说明](docs/ui-playground.md)。
 
 ## 文件与数据
+
+交接从 [需求与验收标准](docs/requirements.md)、[技术架构](docs/architecture.md) 和 [当前进度](docs/progress.md) 开始。
 
 - `dist/index.html`：页面骨架；`dist/styles.css`：响应式样式。
 - `dist/app.js`：浏览器内交互。

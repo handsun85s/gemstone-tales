@@ -39,16 +39,31 @@
   const gemColors = g => mineralColors[g.id] || [g.color];
   const gemTint = g => tint[g.id] || '#eef3e3';
   const noteDrafts = new Map();
+  const storageKey = 'gemstone-tales:v1';
   let state = {saved:[],visited:[],notes:[]};
   let storageAvailable = true;
-  try {
-    const data = JSON.parse(localStorage.getItem('gemstone-tales:v1') || 'null');
-    if (data && typeof data === 'object') {
-      state.saved = [...new Set((Array.isArray(data.saved)?data.saved:[]).filter(id => byId(id)))];
-      state.visited = [...new Set((Array.isArray(data.visited)?data.visited:[]).filter(id => byId(id)))];
-      state.notes = (Array.isArray(data.notes)?data.notes:[]).filter(n => n && typeof n.id === 'string' && typeof n.text === 'string' && n.text.trim() && (n.gem === 'mixed' || byId(n.gem)) && !isNaN(Date.parse(n.date))).map(n => ({id:n.id,gem:n.gem,text:n.text.slice(0,1200),date:n.date,mission:['colors','light','family'].includes(n.mission)?n.mission:undefined}));
+  let memoryOnly = false;
+  function refreshState() {
+    if (memoryOnly) return;
+    let raw;
+    try {
+      raw = localStorage.getItem(storageKey);
+    } catch {
+      storageAvailable = false;
+      return;
     }
-  } catch { storageAvailable = false; }
+    let data;
+    try { data = JSON.parse(raw) || {}; } catch { data = {}; }
+    state = {
+      saved: [...new Set((Array.isArray(data.saved)?data.saved:[]).filter(id => byId(id)))],
+      visited: [...new Set((Array.isArray(data.visited)?data.visited:[]).filter(id => byId(id)))],
+      notes: (Array.isArray(data.notes)?data.notes:[])
+        .filter(n => n && typeof n.id === 'string' && typeof n.text === 'string' && n.text.trim() && (n.gem === 'mixed' || byId(n.gem)) && !isNaN(Date.parse(n.date)))
+        .map(n => ({id:n.id,gem:n.gem,text:n.text.slice(0,1200),date:n.date,mission:['colors','light','family'].includes(n.mission)?n.mission:undefined}))
+    };
+    storageAvailable = true;
+  }
+  refreshState();
   let toastTimer;
   function toast(message) {
     $('#toast').textContent = message;
@@ -57,8 +72,24 @@
     toastTimer = setTimeout(() => $('#toast').classList.remove('visible'), 3500);
   }
   function persist() {
-    try { localStorage.setItem('gemstone-tales:v1', JSON.stringify(state)); storageAvailable = true; return true; }
-    catch { storageAvailable = false; toast('浏览器无法保存数据，请在离开前导出手记。'); return false; }
+    try {
+      if (!storageAvailable) throw new Error('Storage unavailable');
+      localStorage.setItem(storageKey, JSON.stringify(state));
+      return true;
+    } catch {
+      storageAvailable = false;
+      memoryOnly = true;
+      toast('浏览器无法保存数据，请在离开前导出手记。');
+      return false;
+    }
+  }
+  function recordVisit(id) {
+    refreshState();
+    if (!state.visited.includes(id)) {
+      state.visited.push(id);
+      persist();
+    }
+    updateStats();
   }
   const missions = [
     {id:'colors',title:'颜色侦探',subtitle:'同一颗宝石，会有几种颜色？',time:'约 5 分钟',icon:'eye',bg:'#efe8f3',color:'#a08ab4',materials:'一两颗干净完整的标本、一张白纸、自然散射光。',steps:['把宝石放在白纸上，在明亮但没有阳光直射的地方观察。你看见了什么颜色？','轻轻转动宝石，寻找深浅不同的地方。是整颗均匀，还是有色带、小斑点？','在心里给它挑三种颜色，或用彩笔画下来。也可以和图鉴里同一种标本比较。'],question:'照片和你的宝石颜色不同，就一定是不同种类吗？',answer:'不一定。天然标本本来就有差异，光线和屏幕也会改变颜色。辨认矿物需要多条线索，颜色只是其中一条。',starter:'我观察的宝石是：\n我看见的颜色和深浅：\n转动后，我注意到：\n我还想知道：',gem:'mixed'},
@@ -124,6 +155,7 @@
     $('.storage-note span:last-child').textContent = storageAvailable ? '手记和收藏保存在当前浏览器中，不会上传。换设备或清除浏览器数据后不会保留，记得定期导出。' : '当前浏览器无法持久保存数据。手记暂存在本次页面中，请在关闭前导出。';
   }
   function toggleSave(id, sourceButton) {
+    refreshState();
     const saved = state.saved.includes(id);
     state.saved = saved?state.saved.filter(x=>x!==id):[...state.saved,id];
     const ok = persist();
@@ -145,7 +177,7 @@
   function openGem(id) {
     const g = byId(id); if(!g) return;
     currentGem = g;
-    if(!state.visited.includes(id)){state.visited.push(id);persist();updateStats();}
+    recordVisit(id);
     $('#gem-detail').innerHTML = `<div class="detail-layout"><aside class="detail-visual" style="--tint:${gemTint(g)}"><div class="eyebrow">THE GEM COLLECTION · ${String(gems.indexOf(g)+1).padStart(3,'0')}</div><img src="${escape(photoPath(id))}" alt="${escape(photoAlt(g.id))}">${g.illustration?'<span class="detail-illustration-label">宝石图标 · 线索见资料卡</span>':''}<h2 id="gem-dialog-title">${escape(g.name)}</h2><span class="detail-en">${escape(g.en)}</span><div class="detail-properties"><div><span>所属家族</span><strong>${escape(g.family)}</strong></div><div><span>莫氏硬度</span><strong>${escape(g.hardness)} / 10</strong></div><div class="formula-property"><span>主要成分</span><strong>${escape(g.formula)}</strong></div></div><button class="button secondary" id="detail-save" data-save="${id}"></button></aside><div class="detail-content"><button class="circle-button detail-close" data-close aria-label="关闭宝石知识卡">${icon('x')}</button><h3>${escape(g.tagline)}</h3><p class="detail-intro">${escape(g.intro)}</p><div class="detail-tabs" role="tablist" aria-label="宝石知识"><button role="tab" aria-selected="true" aria-controls="detail-panel" id="detail-tab-observe" data-detail-tab="observe">观察线索</button><button role="tab" aria-selected="false" aria-controls="detail-panel" id="detail-tab-story" data-detail-tab="story" tabindex="-1">地球故事</button><button role="tab" aria-selected="false" aria-controls="detail-panel" id="detail-tab-quiz" data-detail-tab="quiz" tabindex="-1">小小挑战</button></div><div class="detail-panel" id="detail-panel" role="tabpanel" aria-labelledby="detail-tab-observe"></div><div class="mini-safety">${icon('shield')}<span>${escape(g.safety)} 硬度是资料中的相对刮划指标，观察时不用自己刮划。</span></div><a class="detail-source" href="${escape(g.source.url)}" target="_blank" rel="noopener noreferrer">知识来源：${escape(g.source.label)} ↗</a></div></div>`;
     $('#gem-dialog').setAttribute('aria-labelledby','gem-dialog-title');
     renderDetailTab('observe'); updateDetailSave();
@@ -196,7 +228,13 @@
     if(!text || text===$('#note-form').dataset.starter.trim()) {error.hidden=false;error.textContent='加上一点自己的观察或问题，再把发现保存下来。';$('#note-text').focus();return;}
     if(text.length>1200){error.hidden=false;error.textContent='这次发现最多记录 1200 个字。';return;}
     const id=$('#note-id').value;
+    refreshState();
     const existing=state.notes.find(n=>n.id===id);
+    if (id && !existing) {
+      error.hidden = false;
+      error.textContent = '这条手记已在另一个页面删除。文字还在编辑框里，可以复制到一条新手记。';
+      return;
+    }
     const note={id:existing?.id || (globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`),gem:$('#note-gem').value,text,date:existing?.date || new Date().toISOString(),mission:$('#note-form').dataset.mission || undefined};
     if(!byId(note.gem) && note.gem!=='mixed')return;
     if(existing)state.notes=state.notes.map(n=>n.id===id?note:n);else state.notes.push(note);
@@ -212,6 +250,7 @@
     $('#info-dialog').setAttribute('aria-labelledby','info-title');$('#info-dialog').showModal();
   }
   function exportNotes() {
+    refreshState();
     if(!state.notes.length)return;
     const lines=['宝石奇谭 · 我的小小发现','导出时间：'+new Date().toLocaleString('zh-CN'),''];
     [...state.notes].sort((a,b)=>new Date(b.date)-new Date(a.date)).forEach(n=>lines.push(`${noteName(n)} · ${dateLabel(n.date)}`,n.mission?`探索任务：${missions.find(m=>m.id===n.mission)?.title || ''}`:'',n.text,'','--------------------',''));
@@ -254,7 +293,7 @@
     if(b.dataset.noteGem){$('#gem-dialog').close();openNote({gem:b.dataset.noteGem});return;}
     if(b.dataset.editNote){openNote({id:b.dataset.editNote});return;}
     if(b.dataset.deleteNote){confirmDelete(b.dataset.deleteNote);return;}
-    if(b.dataset.confirmDelete){state.notes=state.notes.filter(n=>n.id!==b.dataset.confirmDelete);const ok=persist();$('#info-dialog').close();renderNotes();renderMissions();updateStats();if(ok)toast('这条手记已删除。');return;}
+    if(b.dataset.confirmDelete){refreshState();state.notes=state.notes.filter(n=>n.id!==b.dataset.confirmDelete);const ok=persist();$('#info-dialog').close();renderNotes();renderMissions();updateStats();if(ok)toast('这条手记已删除。');return;}
     if(b.dataset.mission){openMission(b.dataset.mission);return;}
     if(b.dataset.missionNote){const m=missions.find(m=>m.id===b.dataset.missionNote);$('#mission-dialog').close();openNote({gem:m.gem,mission:m.id});return;}
     if(b.dataset.info){openInfo(b.dataset.info);return;}
@@ -277,8 +316,17 @@
   });
   $$('dialog').forEach(d=>{d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();}});});
   document.addEventListener('gemstone:visited',event=>{
-    const id=event.detail?.id;if(!byId(id)||state.visited.includes(id))return;
-    state.visited.push(id);persist();updateStats();
+    const id=event.detail?.id;
+    if(byId(id))recordVisit(id);
+  });
+  window.addEventListener('storage', event => {
+    if (event.key !== storageKey || memoryOnly) return;
+    refreshState();
+    renderGems();
+    renderNotes();
+    renderMissions();
+    updateStats();
+    if ($('#gem-dialog').open) updateDetailSave();
   });
   document.addEventListener('gemstone:record',event=>{
     const id=event.detail?.id;if(byId(id))openNote({gem:id});

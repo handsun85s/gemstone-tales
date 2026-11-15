@@ -6,6 +6,6 @@
   "scripts": {
     "start": "node server.mjs",
     "validate:content": "node scripts/validate-content.mjs",
-    "check": "node --check dist/app.js && node --check dist/gems.js && node --check dist/island.js && node scripts/check-adventure.mjs && node scripts/validate-content.mjs && node scripts/validate-playground.mjs"
+    "check": "node --check dist/app.js && node --check dist/gems.js && node --check dist/island.js && node scripts/check-adventure.mjs && node scripts/check-notebook.mjs && node scripts/validate-content.mjs && node scripts/validate-playground.mjs"
   }
 }
